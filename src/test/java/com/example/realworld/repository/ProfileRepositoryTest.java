@@ -40,12 +40,12 @@ public class ProfileRepositoryTest {
 
     @BeforeEach
     public void setUp(){
-        userRepository.save(followerUser);
-        userRepository.save(userToBeFollowed);
-        userRepository.save(otherUser);
-        profileRepository.save(followerProfile);
-        profileRepository.save(profileToBeFollowed);
-        profileRepository.save(otherProfile);
+        this.userRepository.save(followerUser);
+        this.userRepository.save(userToBeFollowed);
+        this.userRepository.save(otherUser);
+        this.profileRepository.save(followerProfile);
+        this.profileRepository.save(profileToBeFollowed);
+        this.profileRepository.save(otherProfile);
 
         Set<Profile> profiles = followerProfile.getFollowings();
         if(profiles == null){
@@ -53,14 +53,15 @@ public class ProfileRepositoryTest {
         }
         profiles.add(profileToBeFollowed);
         followerProfile.setFollowings(profiles);
+        System.out.println(this.userRepository.findAll());
     }
 
     @Test
     public void testIsFollowingThisProfile(){
-        Profile profile = profileRepository.findByUsername(followerProfile.getUsername());
-        System.out.println(profile.getFollowings());
-        profile = profileRepository.findByUsername(profileToBeFollowed.getUsername());
-        System.out.println(profile.getFollowings());
+//        Profile profile = profileRepository.findByUsername(followerProfile.getUsername());
+//        System.out.println(profile.getFollowings());
+//        profile = profileRepository.findByUsername(profileToBeFollowed.getUsername());
+//        System.out.println(profile.getFollowings());
     }
 
     @Disabled

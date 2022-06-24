@@ -33,17 +33,19 @@ public class Profile {
     @JoinColumn(name="user_id", nullable = false)
     private User user;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @JsonIgnore
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name="follower",
-            joinColumns={@JoinColumn(name="profile", referencedColumnName = "id")},
-            inverseJoinColumns={@JoinColumn(name="followedBy", referencedColumnName = "id")})
-    private Set<Profile> followers = new HashSet<Profile>();
+            joinColumns={@JoinColumn(name="profile")},
+            inverseJoinColumns={@JoinColumn(name="followedBy")})
+    private Set<Profile> followers = new HashSet<>();
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name="follower",
-            joinColumns={@JoinColumn(name="followedBy", referencedColumnName = "id")},
-            inverseJoinColumns={@JoinColumn(name="profile", referencedColumnName = "id")})
-    private Set<Profile> followings = new HashSet<Profile>();
+    @JsonIgnore
+    @ManyToMany(mappedBy = "followers", fetch = FetchType.LAZY)
+//    @JoinTable(name="follower",
+//            joinColumns={@JoinColumn(name="followedBy")},
+//            inverseJoinColumns={@JoinColumn(name="profile") })
+    private Set<Profile> followings = new HashSet<>();
 
 
 //    public Profile(String username, String bio, String image, User user) {

@@ -33,6 +33,7 @@ public class ProfileService {
 
     public ProfileDto findProfileByUsername(String username, User currentUser){
         Profile profile = this.profileRepository.findByUsername(username);
+        System.out.println(profile);
         Boolean isFollowingThisProfile = false;
         if(currentUser != null) {
             isFollowingThisProfile = this.profileRepository.isFollowingThisProfile(profile.getId(), currentUser.getProfile().getId());
